@@ -25,21 +25,18 @@
             scroll-behavior: smooth;
         }
 
-        /* ── SINGLE GLOBAL 3D CANVAS (replaces all the separate ones) ── */
         #globalCanvas {
             position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 0; pointer-events: none;
         }
 
-        /* all content above canvas */
         .navbar, section, footer, hr,
         #progress, .cursor, .cursor-ring,
         #chatBtn, #chatBox, #toTop, #preloader {
             position: relative; z-index: 1;
         }
 
-        /* ── SCROLL PROGRESS BAR ── */
         #progress {
             position: fixed; top: 0; left: 0; height: 3px;
             background: linear-gradient(90deg, #00f7ff, #7b2ff7);
@@ -48,13 +45,11 @@
             transition: width 0.1s linear;
         }
 
-        /* ── CURSORS ── */
         .cursor {
             position: fixed; width: 18px; height: 18px;
             background: #00f7ff; border-radius: 50%;
             pointer-events: none; mix-blend-mode: difference;
             z-index: 9999; transform: translate(-50%,-50%);
-            transition: transform 0.1s ease;
         }
         .cursor-ring {
             position: fixed; width: 38px; height: 38px;
@@ -66,7 +61,6 @@
         .cursor-ring.hovered { width: 54px; height: 54px; border-color: #00f7ff }
         @media (hover: none) { .cursor, .cursor-ring { display: none } }
 
-        /* ── NAVBAR ── */
         .navbar {
             background: rgba(0,0,0,0.45);
             backdrop-filter: blur(14px);
@@ -94,7 +88,6 @@
         }
         #themeToggle:hover { background: rgba(0,247,255,0.15); transform: rotate(20deg) }
 
-        /* ── LIGHT THEME ── */
         [data-theme="light"] body { background: linear-gradient(135deg, #daf1f7, #c5e8f0, #a8dce8); color: #0f2027 }
         [data-theme="light"] .navbar { background: rgba(255,255,255,0.7) }
         [data-theme="light"] .navbar a,
@@ -113,12 +106,10 @@
         [data-theme="light"] .contact-social-btn { background: rgba(255,255,255,0.4); color: #0f2027 }
         [data-theme="light"] .contact-social-btn:hover { background: rgba(0,150,180,0.15); color: #0f2027 }
 
-        /* ── HERO ── */
         .hero {
             min-height: 100vh; display: flex;
             align-items: center; position: relative; overflow: hidden;
         }
-        /* hero-only canvases: float icons + explosion */
         #floatCanvas, #explosionCanvas {
             position: absolute; top: 0; left: 0;
             width: 100%; height: 100%; pointer-events: none;
@@ -158,7 +149,6 @@
         .hero-stat-num { font-size: 30px; font-weight: 700; color: #00f7ff; line-height: 1 }
         .hero-stat-label { font-size: 11px; color: rgba(255,255,255,0.55); letter-spacing: 1px; text-transform: uppercase }
 
-        /* ── BUTTONS ── */
         .btn-custom {
             background: #00f7ff; color: black;
             font-weight: 600; border: none;
@@ -181,14 +171,12 @@
         }
         .section-alt { background: rgba(255,255,255,0.025) }
 
-        /* ── GLASS ── */
         .glass {
             background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
             border-radius: 15px; padding: 30px;
         }
 
-        /* ── SKILLS — original bar style, restored ── */
         .skill { margin-bottom: 20px }
         .skill-bar {
             height: 10px; background: #333;
@@ -208,7 +196,6 @@
             border-radius: 50%; box-shadow: 0 0 8px #00f7ff;
         }
 
-        /* ── PROJECT CARDS ── */
         .project-card {
             background: rgba(255,255,255,0.05);
             border: none; border-radius: 15px;
@@ -241,7 +228,6 @@
             letter-spacing: 1.5px; text-transform: uppercase;
             padding: 3px 10px; border-radius: 4px;
         }
-        /* tech tags on hover */
         .project-tech-tags {
             display: flex; gap: 6px; flex-wrap: wrap;
             margin-top: 8px; margin-bottom: 12px;
@@ -256,7 +242,6 @@
             border-radius: 4px; color: #00f7ff;
         }
 
-        /* ── TIMELINE ── */
         .timeline { border-left: 3px solid #00f7ff; padding-left: 25px; position: relative }
         .timeline-item { margin-bottom: 35px; transition: .3s; position: relative }
         .timeline-item::before {
@@ -273,7 +258,7 @@
             background: rgba(0,247,255,0.1); color: #00f7ff; border: 1px solid rgba(0,247,255,0.2);
         }
 
-        /* ── GITHUB STATS — proper alignment ── */
+        /* ── GITHUB STATS ── */
         .github-stats-grid {
             display: flex; flex-wrap: wrap;
             gap: 20px; justify-content: center; align-items: flex-start;
@@ -281,16 +266,26 @@
         .github-stat-row {
             display: flex; gap: 20px; flex-wrap: wrap; justify-content: center;
         }
-        .stat-card img {
-            border-radius: 10px; max-width: 100%; height: auto; display: block;
-            transition: transform 0.3s, box-shadow 0.3s;
+        /* stat card — fixed size box so layout never collapses */
+        .stat-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(0,247,255,0.12);
+            border-radius: 12px; padding: 10px;
+            display: flex; align-items: center; justify-content: center;
+            min-width: 260px; min-height: 120px;
+            opacity: 0; transform: translateY(28px);
+            transition: opacity 0.7s ease, transform 0.7s ease, box-shadow 0.3s;
         }
-        .stat-card img:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0,247,255,0.25);
+        .stat-card.stat-visible { opacity: 1; transform: translateY(0) }
+        .stat-card:hover { box-shadow: 0 8px 28px rgba(0,247,255,0.18) }
+        .stat-card img {
+            border-radius: 8px; max-width: 100%; height: auto; display: block;
+        }
+        /* fallback text when image fails */
+        .stat-card .stat-fallback {
+            color: rgba(255,255,255,0.35); font-size: 12px; text-align: center; display: none;
         }
 
-        /* ── CONTACT — proper alignment ── */
         .contact-wrapper {
             display: flex; flex-direction: column;
             align-items: center; gap: 28px;
@@ -325,7 +320,6 @@
             color: white;
         }
 
-        /* ── CHATBOT ── */
         #chatBtn {
             position: fixed; bottom: 20px; right: 20px;
             background: #00f7ff; border: none;
@@ -396,7 +390,6 @@
         ::-webkit-scrollbar-thumb { background: rgba(0,247,255,0.3); border-radius: 4px }
         ::-webkit-scrollbar-thumb:hover { background: #00f7ff }
 
-        /* ── PRELOADER ── */
         #preloader {
             position: fixed; inset: 0; z-index: 99999;
             background: #0a1628;
@@ -431,7 +424,6 @@
             color: rgba(255,255,255,0.4); text-transform: uppercase;
         }
 
-        /* ── SECTION HEADING WIPE ── */
         .wipe-title { position: relative; display: inline-block; overflow: hidden }
         .wipe-title::after {
             content: ''; position: absolute; top: 0; left: -4px;
@@ -440,20 +432,14 @@
             box-shadow: 0 0 16px #00f7ff;
             transform: scaleY(0); transform-origin: top; transition: transform 0.35s ease;
         }
-        .wipe-title.wiped::after {
-            transform: scaleY(1); animation: wipeSlide 0.7s ease forwards;
-        }
+        .wipe-title.wiped::after { transform: scaleY(1); animation: wipeSlide 0.7s ease forwards; }
         @keyframes wipeSlide {
             0%   { left: -4px; opacity: 1 }
             100% { left: calc(100% + 4px); opacity: 0 }
         }
-        .wipe-title span {
-            display: inline-block; clip-path: inset(0 100% 0 0);
-            transition: clip-path 0.7s cubic-bezier(0.77,0,0.175,1);
-        }
+        .wipe-title span { display: inline-block; clip-path: inset(0 100% 0 0); transition: clip-path 0.7s cubic-bezier(0.77,0,0.175,1); }
         .wipe-title.wiped span { clip-path: inset(0 0% 0 0) }
 
-        /* ── TYPEWRITER ABOUT ── */
         #aboutTyped { display: inline }
         .typed-cursor-about {
             display: inline-block; width: 2px; height: 1em;
@@ -463,7 +449,6 @@
         }
         @keyframes blinkCursor { 50% { opacity: 0 } }
 
-        /* ── RIPPLE ── */
         .hero-ripple {
             position: absolute; border-radius: 50%;
             border: 2px solid rgba(0,247,255,0.7);
@@ -473,48 +458,100 @@
         }
         @keyframes rippleOut { to { transform: translate(-50%,-50%) scale(6); opacity: 0 } }
 
-        /* ── SMOOTH SECTION ENTRANCE ANIMATIONS ── */
-        /* about panel */
-        .section-panel {
-            opacity: 0; transform: translateY(40px);
-            transition: opacity 0.9s ease, transform 0.9s ease;
-        }
+        .section-panel { opacity: 0; transform: translateY(40px); transition: opacity 0.9s ease, transform 0.9s ease; }
         .section-panel.in-view { opacity: 1; transform: translateY(0) }
 
-        /* skills */
-        .skill {
-            opacity: 0; transform: translateX(-24px);
-            transition: opacity 0.55s ease, transform 0.55s ease;
-        }
+        .skill { opacity: 0; transform: translateX(-24px); transition: opacity 0.55s ease, transform 0.55s ease; }
         .skill.skill-visible { opacity: 1; transform: translateX(0) }
 
-        /* project cards */
-        .project-card-wrap {
-            opacity: 0; transform: scale(0.93) translateY(28px);
-            transition: opacity 0.65s ease, transform 0.65s ease;
-        }
+        .project-card-wrap { opacity: 0; transform: scale(0.93) translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
         .project-card-wrap.card-visible { opacity: 1; transform: scale(1) translateY(0) }
 
-        /* timeline */
-        .timeline-item {
-            opacity: 0; transform: translateX(-28px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
+        .timeline-item { opacity: 0; transform: translateX(-28px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .timeline-item.tl-visible { opacity: 1; transform: translateX(0) }
 
-        /* github stats */
-        .stat-card {
-            opacity: 0; transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .stat-card.stat-visible { opacity: 1; transform: translateY(0) }
-
-        /* contact */
-        .contact-wrapper {
-            opacity: 0; transform: translateY(28px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
+        .contact-wrapper { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .contact-wrapper.contact-visible { opacity: 1; transform: translateY(0) }
+
+        /* ── GITHUB CUSTOM CARDS ── */
+        .gh-grid {
+            display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;
+        }
+        .gh-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(0,247,255,0.15);
+            border-radius: 16px; padding: 22px 24px;
+            text-align: left; flex: 1; min-width: 280px; max-width: 420px;
+        }
+        .gh-card-header {
+            display: flex; align-items: center; gap: 10px;
+            font-size: 14px; font-weight: 600; color: rgba(255,255,255,0.85);
+            margin-bottom: 18px; padding-bottom: 12px;
+            border-bottom: 1px solid rgba(0,247,255,0.1);
+        }
+        .gh-card-header i { font-size: 18px }
+        .gh-loading {
+            display: flex; gap: 8px; justify-content: center; padding: 20px 0;
+        }
+        .gh-dot {
+            width: 8px; height: 8px; background: #00f7ff;
+            border-radius: 50%; animation: ghPulse 1.2s ease-in-out infinite;
+        }
+        .gh-dot:nth-child(2) { animation-delay: 0.2s; background: #7b2ff7 }
+        .gh-dot:nth-child(3) { animation-delay: 0.4s }
+        @keyframes ghPulse {
+            0%,100% { opacity: 0.3; transform: scale(0.8) }
+            50% { opacity: 1; transform: scale(1.2) }
+        }
+        .gh-stats-body { padding: 4px 0 }
+        .gh-stat-row-inner {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        .gh-stat-item {
+            display: flex; flex-direction: column; align-items: center;
+            background: rgba(0,247,255,0.05);
+            border: 1px solid rgba(0,247,255,0.1);
+            border-radius: 12px; padding: 14px 10px; gap: 4px;
+            transition: all 0.3s;
+        }
+        .gh-stat-item:hover {
+            background: rgba(0,247,255,0.1);
+            border-color: rgba(0,247,255,0.3);
+            transform: translateY(-2px);
+        }
+        .gh-stat-item i { font-size: 20px; color: #00f7ff }
+        .gh-stat-item span { font-size: 22px; font-weight: 700; color: #00f7ff }
+        .gh-stat-item small { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255,255,255,0.45) }
+        /* lang bars */
+        .gh-lang-row {
+            display: flex; align-items: center; gap: 10px;
+            margin-bottom: 12px;
+        }
+        .gh-lang-name { width: 90px; font-size: 12px; color: rgba(255,255,255,0.75); flex-shrink: 0 }
+        .gh-lang-bar-wrap { flex: 1; height: 8px; background: rgba(255,255,255,0.08); border-radius: 6px; overflow: hidden }
+        .gh-lang-bar { height: 100%; border-radius: 6px; width: 0%; transition: width 1.2s ease }
+        .gh-lang-pct { width: 36px; font-size: 11px; color: rgba(255,255,255,0.5); text-align: right; flex-shrink: 0 }
+        /* repo list */
+        .gh-repo-item {
+            display: flex; align-items: flex-start; justify-content: space-between;
+            padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+            gap: 12px; text-align: left;
+        }
+        .gh-repo-item:last-child { border-bottom: none }
+        .gh-repo-name { font-size: 14px; font-weight: 600; color: #00f7ff; text-decoration: none }
+        .gh-repo-name:hover { text-decoration: underline }
+        .gh-repo-desc { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px }
+        .gh-repo-meta { display: flex; gap: 14px; margin-top: 6px; font-size: 11px; color: rgba(255,255,255,0.4) }
+        .gh-repo-meta span { display: flex; align-items: center; gap: 4px }
+        .gh-repo-stars { color: #f0c060 }
+        [data-theme="light"] .gh-card { background: rgba(255,255,255,0.5); border-color: rgba(0,100,120,0.2) }
+        [data-theme="light"] .gh-card-header { color: #0f2027; border-color: rgba(0,100,120,0.1) }
+        [data-theme="light"] .gh-stat-item { background: rgba(0,100,120,0.05); border-color: rgba(0,100,120,0.15) }
+        [data-theme="light"] .gh-stat-item small { color: rgba(0,0,0,0.45) }
+        [data-theme="light"] .gh-repo-desc { color: rgba(0,0,0,0.45) }
+        [data-theme="light"] .gh-repo-meta { color: rgba(0,0,0,0.4) }
+
     </style>
 </head>
 
@@ -522,7 +559,6 @@
 
     <canvas id="globalCanvas"></canvas>
 
-    <!-- PRELOADER -->
     <div id="preloader">
         <div class="pre-logo">RS.</div>
         <div class="pre-bar-wrap"><div class="pre-bar"></div></div>
@@ -568,7 +604,6 @@
         </div>
     </nav>
 
-    <!-- ═══════ HERO ═══════ -->
     <section class="hero" id="home">
         <canvas id="floatCanvas"></canvas>
         <canvas id="explosionCanvas"></canvas>
@@ -617,7 +652,6 @@
 
     <hr class="section-divider">
 
-    <!-- ═══════ ABOUT ═══════ -->
     <section id="about" class="py-5">
         <div class="container">
             <div class="glass text-center section-panel">
@@ -632,7 +666,6 @@
 
     <hr class="section-divider">
 
-    <!-- ═══════ SKILLS — original bar style restored ═══════ -->
     <section id="skills" class="py-5 section-alt">
         <div class="container">
             <h2 class="text-center mb-5 wipe-title"><span>Technical Skills</span></h2>
@@ -671,7 +704,6 @@
 
     <hr class="section-divider">
 
-    <!-- ═══════ PROJECTS ═══════ -->
     <section id="projects" class="py-5">
         <div class="container">
             <h2 class="text-center mb-5 wipe-title"><span>Projects</span></h2>
@@ -679,8 +711,7 @@
                 <div class="col-md-4 project-card-wrap">
                     <div class="card project-card">
                         <div class="project-img-wrap">
-                            <img src="movie.jpg"
-                                 alt="Movie Recommendation System" loading="lazy">
+                            <img src="movie.jpg" alt="Movie Recommendation System" loading="lazy">
                             <div class="project-overlay"></div>
                             <span class="project-tag">ML</span>
                         </div>
@@ -693,18 +724,15 @@
                                 <span class="tech-tag">Pandas</span>
                                 <span class="tech-tag">NLP</span>
                             </div>
-                            <a href="https://github.com/Rishabhwith/movie_recommender_system" class="btn btn-custom"
-                               target="_blank" rel="noopener noreferrer">GitHub</a>
-                            <a href="https://movierecommendersystem-5annspqtfezie7jo4v8vyw.streamlit.app/" class="btn btn-custom"
-                               target="_blank" rel="noopener noreferrer">Live</a>
+                            <a href="https://github.com/Rishabhwith/movie_recommender_system" class="btn btn-custom me-2" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://movierecommendersystem-5annspqtfezie7jo4v8vyw.streamlit.app/" class="btn btn-custom" target="_blank" rel="noopener noreferrer">Live</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 project-card-wrap">
                     <div class="card project-card">
                         <div class="project-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71"
-                                 alt="Superstore SQL Analysis" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" alt="Superstore SQL Analysis" loading="lazy">
                             <div class="project-overlay"></div>
                             <span class="project-tag">SQL</span>
                         </div>
@@ -717,16 +745,14 @@
                                 <span class="tech-tag">Power BI</span>
                                 <span class="tech-tag">Excel</span>
                             </div>
-                            <a href="https://github.com/Rishabhwith/Superstore-SQL-Analysis" class="btn btn-custom"
-                               target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://github.com/Rishabhwith/Superstore-SQL-Analysis" class="btn btn-custom" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4 project-card-wrap">
                     <div class="card project-card">
                         <div class="project-img-wrap">
-                            <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd"
-                                 alt="ML Analytics Project" loading="lazy">
+                            <img src="https://images.unsplash.com/photo-1504639725590-34d0984388bd" alt="ML Analytics Project" loading="lazy">
                             <div class="project-overlay"></div>
                             <span class="project-tag">Deep Learning</span>
                         </div>
@@ -739,8 +765,7 @@
                                 <span class="tech-tag">NumPy</span>
                                 <span class="tech-tag">Matplotlib</span>
                             </div>
-                            <a href="https://github.com/Rishabhwith" class="btn btn-custom"
-                               target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="https://github.com/Rishabhwith" class="btn btn-custom" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                     </div>
                 </div>
@@ -750,7 +775,6 @@
 
     <hr class="section-divider">
 
-    <!-- ═══════ EXPERIENCE ═══════ -->
     <section id="experience" class="py-5 section-alt">
         <div class="container">
             <h2 class="text-center mb-5 wipe-title"><span>Experience & Education</span></h2>
@@ -795,35 +819,49 @@
 
     <hr class="section-divider">
 
-    <!-- ═══════ GITHUB STATS ═══════ -->
     <section class="py-5" id="github">
         <div class="container text-center">
             <h2 class="mb-5 wipe-title"><span>GitHub Stats</span></h2>
-            <div class="github-stats-grid">
-                <div class="github-stat-row w-100">
-                    <div class="stat-card">
-                        <img loading="lazy"
-                            src="https://github-readme-stats.vercel.app/api?username=Rishabhwith&show_icons=true&theme=tokyonight&hide_border=true&border_radius=10&count_private=true"
-                            alt="GitHub stats" style="height:140px;width:auto;">
+            <div class="gh-grid">
+                <div class="gh-card stat-card" id="ghOverview">
+                    <div class="gh-card-header">
+                        <i class="bi bi-bar-chart-fill" style="color:#00f7ff"></i>
+                        <span>GitHub Overview</span>
                     </div>
-                    <div class="stat-card">
-                        <img loading="lazy"
-                            src="https://github-readme-streak-stats.herokuapp.com/?user=Rishabhwith&theme=tokyonight&hide_border=true"
-                            alt="GitHub streak" style="height:140px;width:auto;">
+                    <div class="gh-loading" id="ghOverviewLoad"><span class="gh-dot"></span><span class="gh-dot"></span><span class="gh-dot"></span></div>
+                    <div class="gh-stats-body" id="ghOverviewBody" style="display:none">
+                        <div class="gh-stat-row-inner">
+                            <div class="gh-stat-item"><i class="bi bi-star-fill"></i><span id="ghStars">0</span><small>Stars</small></div>
+                            <div class="gh-stat-item"><i class="bi bi-diagram-2-fill"></i><span id="ghForks">0</span><small>Forks</small></div>
+                            <div class="gh-stat-item"><i class="bi bi-people-fill"></i><span id="ghFollowers">0</span><small>Followers</small></div>
+                            <div class="gh-stat-item"><i class="bi bi-collection-fill"></i><span id="ghRepos">0</span><small>Repos</small></div>
+                        </div>
                     </div>
                 </div>
-                <div class="stat-card" style="margin-top:4px">
-                    <img loading="lazy"
-                        src="https://github-readme-stats.vercel.app/api/top-langs/?username=Rishabhwith&layout=compact&theme=tokyonight&hide_border=true"
-                        alt="Top languages" style="height:140px;width:auto;">
+                <div class="gh-card stat-card" id="ghLangsCard">
+                    <div class="gh-card-header">
+                        <i class="bi bi-code-slash" style="color:#7b2ff7"></i>
+                        <span>Most Used Languages</span>
+                    </div>
+                    <div class="gh-loading" id="ghLangsLoad"><span class="gh-dot"></span><span class="gh-dot"></span><span class="gh-dot"></span></div>
+                    <div id="ghLangsBody" style="display:none">
+                        <div id="ghLangBars"></div>
+                    </div>
                 </div>
+            </div>
+            <div class="gh-card stat-card mt-4" style="max-width:860px;margin:20px auto 0">
+                <div class="gh-card-header">
+                    <i class="bi bi-folder2-open" style="color:#00f7ff"></i>
+                    <span>Recent Repositories</span>
+                </div>
+                <div class="gh-loading" id="ghReposLoad"><span class="gh-dot"></span><span class="gh-dot"></span><span class="gh-dot"></span></div>
+                <div id="ghReposList" style="display:none"></div>
             </div>
         </div>
     </section>
 
     <hr class="section-divider">
 
-    <!-- ═══════ CONTACT ═══════ -->
     <section id="contact" class="py-5">
         <div class="container text-center">
             <h2 class="mb-5 wipe-title"><span>Contact</span></h2>
@@ -833,12 +871,10 @@
                     <a href="mailto:rishabhsh2504@gmail.com">rishabhsh2504@gmail.com</a>
                 </div>
                 <div class="contact-social-row">
-                    <a href="https://github.com/Rishabhwith" target="_blank" rel="noopener noreferrer"
-                       class="contact-social-btn">
+                    <a href="https://github.com/Rishabhwith" target="_blank" rel="noopener noreferrer" class="contact-social-btn">
                         <i class="bi bi-github"></i> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/rishabh-sharma-93993a230/" target="_blank" rel="noopener noreferrer"
-                       class="contact-social-btn">
+                    <a href="https://www.linkedin.com/in/rishabh-sharma-93993a230/" target="_blank" rel="noopener noreferrer" class="contact-social-btn">
                         <i class="bi bi-linkedin"></i> LinkedIn
                     </a>
                 </div>
@@ -853,9 +889,6 @@
     <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
     <script>
-    /* ══════════════════════════════════════
-       PRELOADER + IMAGE REVEAL
-    ══════════════════════════════════════ */
     window.addEventListener('load', () => {
         setTimeout(() => {
             document.getElementById('preloader').classList.add('hide');
@@ -873,7 +906,6 @@
         typeSpeed: 60, backSpeed: 40, loop: true
     });
 
-    /* ── CURSORS ── */
     const cursor = document.querySelector(".cursor");
     document.addEventListener("mousemove", e => {
         cursor.style.left = e.clientX + "px";
@@ -892,7 +924,6 @@
         el.addEventListener("mouseleave", () => ring.classList.remove("hovered"));
     });
 
-    /* ── SCROLL: progress + navbar + back-to-top ── */
     window.onscroll = function () {
         const s = document.body.scrollTop || document.documentElement.scrollTop;
         const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -901,7 +932,6 @@
         document.getElementById("toTop").classList.toggle("visible", s > 400);
     };
 
-    /* ── ACTIVE NAV ── */
     document.querySelectorAll("section[id]").forEach(sec => {
         new IntersectionObserver(entries => {
             entries.forEach(e => {
@@ -914,7 +944,6 @@
         }, { threshold: 0.45 }).observe(sec);
     });
 
-    /* ── SKILL BARS ── */
     const skillObs = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -928,7 +957,6 @@
     }, { threshold: 0.1 });
     skillObs.observe(document.getElementById("skills"));
 
-    /* ── COUNTER ── */
     new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) {
@@ -943,7 +971,6 @@
         });
     }, { threshold: 0.6 }).observe(document.querySelector(".hero-stats"));
 
-    /* ── SCRAMBLE ── */
     const scrambleEl = document.getElementById("scrambleName");
     const finalName = "Rishabh Sharma";
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz#@$%&";
@@ -960,7 +987,6 @@
     }
     setTimeout(scramble, 2200);
 
-    /* ── 3D TILT on project cards ── */
     document.querySelectorAll(".project-card").forEach(card => {
         card.addEventListener("mousemove", e => {
             const r = card.getBoundingClientRect();
@@ -973,13 +999,11 @@
         });
     });
 
-    /* ── CONFETTI ── */
     document.getElementById("resumeBtn").addEventListener("click", () => {
         confetti({ particleCount: 80, spread: 65, origin: { y: 0.6 },
             colors: ["#00f7ff", "#7b2ff7", "#ffffff"] });
     });
 
-    /* ── THEME TOGGLE ── */
     let isDark = true;
     function applyTheme(dark) {
         isDark = dark;
@@ -997,7 +1021,6 @@
         b.addEventListener("click", () => applyTheme(!isDark));
     });
 
-    /* ── CHATBOT ── */
     const chatBtn = document.getElementById("chatBtn");
     const chatBox = document.getElementById("chatBox");
     const chatLog = document.getElementById("chatLog");
@@ -1019,15 +1042,14 @@
     function getBotReply(q) {
         q = q.toLowerCase();
         if (q.includes("skill")||q.includes("technology"))
-            return "Rishabh's skills include Python, Machine Learning, Deep Learning, SQL, Pandas, NumPy, NLP, Power BI and Data Visualization.";
+            return "Rishabh's skills include Python, ML, Deep Learning, SQL, Pandas, NumPy, NLP, Power BI and Data Visualization.";
         if (q.includes("project"))
-            return "Rishabh has built a Movie Recommendation System and a Superstore SQL Business Analysis project.";
+            return "Rishabh built a Movie Recommendation System (live on Streamlit!) and a Superstore SQL Analysis project.";
         if (q.includes("education")||q.includes("degree")||q.includes("btech"))
-            return "Rishabh completed B.Tech in Artificial Intelligence and Data Science (2020–2024).";
+            return "Rishabh completed B.Tech in AI & Data Science (2020–2024).";
         if (q.includes("experience"))
             return "Rishabh worked at IIT Guwahati — EDA, data cleaning, feature engineering and ML pipelines.";
-        if (q.includes("contact")||q.includes("email"))
-            return "Contact: rishabhsh2504@gmail.com";
+        if (q.includes("contact")||q.includes("email")) return "Contact: rishabhsh2504@gmail.com";
         if (q.includes("github")) return "GitHub: https://github.com/Rishabhwith";
         if (q.includes("linkedin")) return "LinkedIn: https://linkedin.com/in/rishabh-sharma-93993a230";
         if (q.includes("who")||q.includes("about"))
@@ -1042,7 +1064,6 @@
     chatSend.onclick = sendMsg;
     chatInput.addEventListener("keypress", e => { if (e.key === "Enter") sendMsg(); });
 
-    /* ── MAGNETIC BUTTONS ── */
     document.querySelectorAll(".btn-custom").forEach(btn => {
         btn.addEventListener("mousemove", e => {
             const r = btn.getBoundingClientRect();
@@ -1051,45 +1072,31 @@
         btn.addEventListener("mouseleave", () => { btn.style.transform = "translate(0,0)"; });
     });
 
-    /* ══════════════════════════════════════════════════════
-       GLOBAL THREE.JS  — single canvas, performance tuned
-       Only 600 particles, no per-frame position array read
-       on desktop full, reduces to 300 on mobile
-    ══════════════════════════════════════════════════════ */
+    /* ── THREE.JS GLOBAL PARTICLES ── */
     const isMobile = window.innerWidth < 768;
     const PCOUNT = isMobile ? 300 : 600;
-
     const gCanvas   = document.getElementById("globalCanvas");
     const gScene    = new THREE.Scene();
     const gCamera   = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
     const gRenderer = new THREE.WebGLRenderer({ canvas: gCanvas, alpha: true, antialias: false });
     gRenderer.setSize(window.innerWidth, window.innerHeight);
-    gRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // cap pixel ratio
+    gRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     gCamera.position.z = 7;
 
     const gGeo  = new THREE.BufferGeometry();
     const gPos  = new Float32Array(PCOUNT * 3);
     const gBase = new Float32Array(PCOUNT * 3);
     const gCol  = new Float32Array(PCOUNT * 3);
-
     for (let i = 0; i < PCOUNT; i++) {
         const x = (Math.random()-0.5)*18, y = (Math.random()-0.5)*18, z = (Math.random()-0.5)*18;
         gPos[i*3]=x; gPos[i*3+1]=y; gPos[i*3+2]=z;
         gBase[i*3]=x; gBase[i*3+1]=y; gBase[i*3+2]=z;
-        // alternate cyan / purple
         const cyan = (i % 2 === 0);
-        gCol[i*3]   = cyan ? 0   : 0.48;
-        gCol[i*3+1] = cyan ? 0.97: 0.18;
-        gCol[i*3+2] = cyan ? 1   : 0.97;
+        gCol[i*3]=cyan?0:0.48; gCol[i*3+1]=cyan?0.97:0.18; gCol[i*3+2]=cyan?1:0.97;
     }
     gGeo.setAttribute("position", new THREE.BufferAttribute(gPos, 3));
     gGeo.setAttribute("color",    new THREE.BufferAttribute(gCol, 3));
-
-    const gMat = new THREE.PointsMaterial({
-        size: 0.028, vertexColors: true,
-        transparent: true, opacity: 0.65,
-        blending: THREE.AdditiveBlending, depthWrite: false
-    });
+    const gMat = new THREE.PointsMaterial({ size:0.028, vertexColors:true, transparent:true, opacity:0.65, blending:THREE.AdditiveBlending, depthWrite:false });
     const gPts = new THREE.Points(gGeo, gMat);
     gScene.add(gPts);
 
@@ -1098,65 +1105,45 @@
         gMX = (e.clientX/window.innerWidth - 0.5) * 4;
         gMY = -(e.clientY/window.innerHeight - 0.5) * 4;
     });
-
     function scrollFrac() {
         const h = document.documentElement.scrollHeight - window.innerHeight;
         return h > 0 ? window.scrollY / h : 0;
     }
-
-    // throttle repulsion — only run every other frame
     let gFrame = 0;
     function animGlobal() {
         requestAnimationFrame(animGlobal);
         gFrame++;
-
-        gPts.rotation.y += 0.00055;
-        gPts.rotation.x += 0.00018;
-
-        // camera soft follow mouse
-        gCamera.position.x += (gMX * 0.12 - gCamera.position.x) * 0.022;
-        gCamera.position.y += (gMY * 0.12 - gCamera.position.y) * 0.022;
+        gPts.rotation.y += 0.00055; gPts.rotation.x += 0.00018;
+        gCamera.position.x += (gMX*0.12 - gCamera.position.x) * 0.022;
+        gCamera.position.y += (gMY*0.12 - gCamera.position.y) * 0.022;
         gCamera.position.z  = 7 - scrollFrac() * 1.8;
-
-        // repulsion every other frame to halve cost
         if (gFrame % 2 === 0) {
             const pos = gGeo.attributes.position.array;
             for (let i = 0; i < PCOUNT; i++) {
-                const ix = i*3, iy = ix+1;
-                const dx = pos[ix] - gMX*7, dy = pos[iy] - gMY*7;
-                const d2 = dx*dx + dy*dy;
-                if (d2 < 4) {
-                    const d = Math.sqrt(d2);
-                    pos[ix] += (dx/d) * 0.045;
-                    pos[iy] += (dy/d) * 0.045;
-                } else {
-                    pos[ix] += (gBase[ix]-pos[ix]) * 0.013;
-                    pos[iy] += (gBase[iy]-pos[iy]) * 0.013;
-                }
+                const ix=i*3, iy=ix+1;
+                const dx=pos[ix]-gMX*7, dy=pos[iy]-gMY*7;
+                const d2=dx*dx+dy*dy;
+                if (d2 < 4) { const d=Math.sqrt(d2); pos[ix]+=(dx/d)*0.045; pos[iy]+=(dy/d)*0.045; }
+                else { pos[ix]+=(gBase[ix]-pos[ix])*0.013; pos[iy]+=(gBase[iy]-pos[iy])*0.013; }
             }
             gGeo.attributes.position.needsUpdate = true;
         }
-
         gRenderer.render(gScene, gCamera);
     }
     animGlobal();
 
     window.addEventListener("resize", () => {
-        gCamera.aspect = window.innerWidth / window.innerHeight;
+        gCamera.aspect = window.innerWidth/window.innerHeight;
         gCamera.updateProjectionMatrix();
         gRenderer.setSize(window.innerWidth, window.innerHeight);
         resizeFC(); resizeEC();
     });
 
-    /* ── FLOATING TECH ICONS (hero only, lightweight canvas) ── */
+    /* ── FLOAT ICONS ── */
     const floatCanvas = document.getElementById('floatCanvas');
     const fctx = floatCanvas.getContext('2d');
-    function resizeFC() {
-        floatCanvas.width  = floatCanvas.offsetWidth;
-        floatCanvas.height = floatCanvas.offsetHeight;
-    }
+    function resizeFC() { floatCanvas.width=floatCanvas.offsetWidth; floatCanvas.height=floatCanvas.offsetHeight; }
     resizeFC();
-
     const ICONS = [
         {label:'Python',emoji:'🐍'},{label:'TensorFlow',emoji:'🤖'},
         {label:'SQL',emoji:'🗄️'},{label:'Pandas',emoji:'🐼'},
@@ -1164,165 +1151,249 @@
         {label:'NLP',emoji:'💬'},{label:'ML',emoji:'⚙️'},
     ];
     const floaters = ICONS.map(t => ({
-        ...t,
-        x: Math.random()*window.innerWidth, y: Math.random()*window.innerHeight,
-        vx: (Math.random()-0.5)*0.35, vy: (Math.random()-0.5)*0.35,
-        size: 13+Math.random()*7, alpha: 0.11+Math.random()*0.16,
-        wobble: Math.random()*Math.PI*2, ws: 0.007+Math.random()*0.01,
+        ...t, x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight,
+        vx:(Math.random()-0.5)*0.35, vy:(Math.random()-0.5)*0.35,
+        size:13+Math.random()*7, alpha:0.11+Math.random()*0.16,
+        wobble:Math.random()*Math.PI*2, ws:0.007+Math.random()*0.01,
     }));
-
     function drawFloat() {
         fctx.clearRect(0,0,floatCanvas.width,floatCanvas.height);
         floaters.forEach(f => {
-            f.wobble += f.ws;
-            f.x += f.vx + Math.sin(f.wobble)*0.28;
-            f.y += f.vy + Math.cos(f.wobble)*0.18;
-            if (f.x < -60) f.x = floatCanvas.width+60;
-            if (f.x > floatCanvas.width+60) f.x = -60;
-            if (f.y < -60) f.y = floatCanvas.height+60;
-            if (f.y > floatCanvas.height+60) f.y = -60;
-            fctx.save();
-            fctx.globalAlpha = f.alpha;
-            fctx.font = `${f.size+5}px serif`;
-            fctx.textAlign = 'center'; fctx.textBaseline = 'middle';
-            fctx.fillText(f.emoji, f.x, f.y);
-            fctx.font = `600 ${f.size-2}px 'Poppins',sans-serif`;
-            fctx.fillStyle = '#00f7ff';
-            fctx.fillText(f.label, f.x, f.y+f.size+5);
-            fctx.restore();
+            f.wobble+=f.ws; f.x+=f.vx+Math.sin(f.wobble)*0.28; f.y+=f.vy+Math.cos(f.wobble)*0.18;
+            if(f.x<-60) f.x=floatCanvas.width+60; if(f.x>floatCanvas.width+60) f.x=-60;
+            if(f.y<-60) f.y=floatCanvas.height+60; if(f.y>floatCanvas.height+60) f.y=-60;
+            fctx.save(); fctx.globalAlpha=f.alpha;
+            fctx.font=`${f.size+5}px serif`; fctx.textAlign='center'; fctx.textBaseline='middle';
+            fctx.fillText(f.emoji,f.x,f.y);
+            fctx.font=`600 ${f.size-2}px 'Poppins',sans-serif`; fctx.fillStyle='#00f7ff';
+            fctx.fillText(f.label,f.x,f.y+f.size+5); fctx.restore();
         });
         requestAnimationFrame(drawFloat);
     }
     drawFloat();
 
-    /* ── PARTICLE EXPLOSION on hero click ── */
+    /* ── EXPLOSION ── */
     const expCanvas = document.getElementById('explosionCanvas');
     const ectx = expCanvas.getContext('2d');
-    function resizeEC() {
-        expCanvas.width  = expCanvas.offsetWidth;
-        expCanvas.height = expCanvas.offsetHeight;
-    }
+    function resizeEC() { expCanvas.width=expCanvas.offsetWidth; expCanvas.height=expCanvas.offsetHeight; }
     resizeEC();
-
     let eParts = [];
-    function spawnExp(x, y) {
-        const cols = ['#00f7ff','#7b2ff7','#ffffff','rgba(0,247,255,0.7)'];
-        for (let i = 0; i < 50; i++) {
-            const ang = (Math.PI*2/50)*i + (Math.random()-0.5)*0.4;
-            const spd = 2+Math.random()*4.5;
-            eParts.push({ x, y, vx:Math.cos(ang)*spd, vy:Math.sin(ang)*spd,
-                r:1.5+Math.random()*2.2, a:1,
-                col:cols[Math.floor(Math.random()*cols.length)],
-                dec:0.014+Math.random()*0.014, g:0.055 });
+    function spawnExp(x,y) {
+        const cols=['#00f7ff','#7b2ff7','#ffffff','rgba(0,247,255,0.7)'];
+        for(let i=0;i<50;i++){
+            const ang=(Math.PI*2/50)*i+(Math.random()-0.5)*0.4, spd=2+Math.random()*4.5;
+            eParts.push({x,y,vx:Math.cos(ang)*spd,vy:Math.sin(ang)*spd,r:1.5+Math.random()*2.2,a:1,
+                col:cols[Math.floor(Math.random()*cols.length)],dec:0.014+Math.random()*0.014,g:0.055});
         }
-        const rip = document.createElement('div');
-        rip.className = 'hero-ripple';
-        rip.style.cssText = `left:${x}px;top:${y}px;width:40px;height:40px`;
+        const rip=document.createElement('div');
+        rip.className='hero-ripple';
+        rip.style.cssText=`left:${x}px;top:${y}px;width:40px;height:40px`;
         document.querySelector('.hero').appendChild(rip);
-        setTimeout(() => rip.remove(), 900);
+        setTimeout(()=>rip.remove(),900);
     }
     function drawExp() {
         ectx.clearRect(0,0,expCanvas.width,expCanvas.height);
-        eParts = eParts.filter(p => p.a > 0.01);
-        eParts.forEach(p => {
-            p.x+=p.vx; p.y+=p.vy; p.vy+=p.g; p.vx*=0.98; p.a-=p.dec;
-            ectx.save();
-            ectx.globalAlpha = Math.max(0,p.a);
-            ectx.beginPath(); ectx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ectx.fillStyle = p.col;
-            ectx.shadowColor = p.col; ectx.shadowBlur = 5;
-            ectx.fill(); ectx.restore();
+        eParts=eParts.filter(p=>p.a>0.01);
+        eParts.forEach(p=>{
+            p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=0.98;p.a-=p.dec;
+            ectx.save();ectx.globalAlpha=Math.max(0,p.a);
+            ectx.beginPath();ectx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ectx.fillStyle=p.col;ectx.shadowColor=p.col;ectx.shadowBlur=5;
+            ectx.fill();ectx.restore();
         });
         requestAnimationFrame(drawExp);
     }
     drawExp();
-    document.querySelector('.hero').addEventListener('click', e => {
-        const rc = expCanvas.getBoundingClientRect();
-        spawnExp(e.clientX-rc.left, e.clientY-rc.top);
+    document.querySelector('.hero').addEventListener('click',e=>{
+        const rc=expCanvas.getBoundingClientRect();
+        spawnExp(e.clientX-rc.left,e.clientY-rc.top);
     });
 
-    /* ── SECTION HEADING WIPE ── */
-    new IntersectionObserver(entries => {
-        entries.forEach(en => {
-            if (en.isIntersecting && !en.target.classList.contains('wiped'))
-                en.target.classList.add('wiped');
-        });
-    }, { threshold: 0.6 }).observe(document.querySelectorAll('.wipe-title')[0]);
-
+    /* ── WIPE TITLES ── */
     document.querySelectorAll('.wipe-title').forEach(el => {
         new IntersectionObserver(entries => {
             entries.forEach(en => {
-                if (en.isIntersecting && !en.target.classList.contains('wiped'))
+                if(en.isIntersecting && !en.target.classList.contains('wiped'))
                     en.target.classList.add('wiped');
             });
         }, { threshold: 0.6 }).observe(el);
     });
 
-    /* ── SECTION PANEL (about) ── */
     new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in-view'); });
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in-view'); });
     }, { threshold: 0.15 }).observe(document.querySelector('.section-panel'));
 
-    /* ── SKILL ROWS stagger ── */
     const skillEls = document.querySelectorAll('.skill');
     new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting)
-                skillEls.forEach((el, i) => setTimeout(() => el.classList.add('skill-visible'), i*75));
+            if(entry.isIntersecting)
+                skillEls.forEach((el,i)=>setTimeout(()=>el.classList.add('skill-visible'),i*75));
         });
     }, { threshold: 0.1 }).observe(document.getElementById('skills'));
 
-    /* ── PROJECT CARDS stagger ── */
     const cardWraps = document.querySelectorAll('.project-card-wrap');
     new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting)
-                cardWraps.forEach((el, i) => setTimeout(() => el.classList.add('card-visible'), i*140));
+            if(entry.isIntersecting)
+                cardWraps.forEach((el,i)=>setTimeout(()=>el.classList.add('card-visible'),i*140));
         });
     }, { threshold: 0.1 }).observe(document.getElementById('projects'));
 
-    /* ── TIMELINE stagger ── */
     const tlItems = document.querySelectorAll('.timeline-item');
     new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting)
-                tlItems.forEach((el, i) => setTimeout(() => el.classList.add('tl-visible'), i*190));
+            if(entry.isIntersecting)
+                tlItems.forEach((el,i)=>setTimeout(()=>el.classList.add('tl-visible'),i*190));
         });
     }, { threshold: 0.1 }).observe(document.getElementById('experience'));
 
-    /* ── GITHUB STAT CARDS ── */
+    /* ── GITHUB STAT CARDS — animate in + reload on error ── */
     const statCards = document.querySelectorAll('.stat-card');
     new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting)
-                statCards.forEach((el, i) => setTimeout(() => el.classList.add('stat-visible'), i*180));
+            if(entry.isIntersecting)
+                statCards.forEach((el,i)=>setTimeout(()=>el.classList.add('stat-visible'),i*180));
         });
     }, { threshold: 0.1 }).observe(document.getElementById('github'));
 
-    /* ── CONTACT ── */
     new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('contact-visible'); });
+        entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('contact-visible'); });
     }, { threshold: 0.2 }).observe(document.querySelector('.contact-wrapper'));
 
-    /* ── TYPEWRITER ABOUT ── */
     const aboutText = "Data Scientist skilled in Python, Machine Learning, Deep Learning, SQL, Data Analytics and Visualization. Experienced in building ML models, recommendation systems, and data analysis dashboards.";
     const aboutEl = document.getElementById('aboutTyped');
     const aboutCur = document.getElementById('aboutCursor');
     let aboutDone = false;
     new IntersectionObserver(entries => {
         entries.forEach(e => {
-            if (e.isIntersecting && !aboutDone) {
-                aboutDone = true;
-                aboutCur.style.display = 'inline-block';
-                let i = 0;
-                (function typeIt() {
-                    aboutEl.textContent = aboutText.slice(0, i++);
-                    if (i <= aboutText.length) setTimeout(typeIt, 21);
-                    else setTimeout(() => { aboutCur.style.display = 'none'; }, 1000);
+            if(e.isIntersecting && !aboutDone){
+                aboutDone=true; aboutCur.style.display='inline-block'; let i=0;
+                (function typeIt(){
+                    aboutEl.textContent=aboutText.slice(0,i++);
+                    if(i<=aboutText.length) setTimeout(typeIt,21);
+                    else setTimeout(()=>{aboutCur.style.display='none';},1000);
                 })();
             }
         });
     }, { threshold: 0.5 }).observe(document.getElementById('about'));
+
+
+    /* ── GITHUB API STATS ── */
+    const GH_USER = 'Rishabhwith';
+    const LANG_COLORS = {
+        Python:'#3572A5', JavaScript:'#f1e05a', TypeScript:'#2b7489',
+        HTML:'#e34c26', CSS:'#563d7c', Jupyter:'#DA5B0B',
+        R:'#198CE7', Java:'#b07219', Shell:'#89e051', C:'#555555',
+        'C++':'#f34b7d', Go:'#00ADD8', Rust:'#dea584', SQL:'#e38c00'
+    };
+
+    async function loadGitHubStats() {
+        try {
+            // Fetch user profile
+            const userRes = await fetch(`https://api.github.com/users/${GH_USER}`);
+            const user = await userRes.json();
+
+            // Fetch all repos (up to 100)
+            const reposRes = await fetch(`https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=updated`);
+            const repos = await reposRes.json();
+
+            if (!Array.isArray(repos)) throw new Error('rate limited');
+
+            // ── Overview ──
+            const totalStars = repos.reduce((a, r) => a + r.stargazers_count, 0);
+            const totalForks = repos.reduce((a, r) => a + r.forks_count, 0);
+            document.getElementById('ghStars').textContent = totalStars;
+            document.getElementById('ghForks').textContent = totalForks;
+            document.getElementById('ghFollowers').textContent = user.followers || 0;
+            document.getElementById('ghRepos').textContent = user.public_repos || repos.length;
+            document.getElementById('ghOverviewLoad').style.display = 'none';
+            document.getElementById('ghOverviewBody').style.display = 'block';
+
+            // ── Language breakdown ──
+            const langBytes = {};
+            await Promise.all(repos.slice(0, 20).map(async r => {
+                try {
+                    const lr = await fetch(r.languages_url);
+                    const langs = await lr.json();
+                    Object.entries(langs).forEach(([l, b]) => {
+                        langBytes[l] = (langBytes[l] || 0) + b;
+                    });
+                } catch(e){}
+            }));
+
+            const totalBytes = Object.values(langBytes).reduce((a,b)=>a+b,0);
+            const sorted = Object.entries(langBytes).sort((a,b)=>b[1]-a[1]).slice(0,7);
+            const barsDiv = document.getElementById('ghLangBars');
+            barsDiv.innerHTML = '';
+            sorted.forEach(([lang, bytes]) => {
+                const pct = ((bytes/totalBytes)*100).toFixed(1);
+                const color = LANG_COLORS[lang] || '#00f7ff';
+                const row = document.createElement('div');
+                row.className = 'gh-lang-row';
+                row.innerHTML = `
+                    <span class="gh-lang-name">${lang}</span>
+                    <div class="gh-lang-bar-wrap">
+                        <div class="gh-lang-bar" data-w="${pct}" style="background:${color}"></div>
+                    </div>
+                    <span class="gh-lang-pct">${pct}%</span>`;
+                barsDiv.appendChild(row);
+            });
+            document.getElementById('ghLangsLoad').style.display = 'none';
+            document.getElementById('ghLangsBody').style.display = 'block';
+            // animate bars
+            setTimeout(() => {
+                document.querySelectorAll('.gh-lang-bar').forEach(b => {
+                    b.style.width = b.dataset.w + '%';
+                });
+            }, 200);
+
+            // ── Recent repos ──
+            const top = repos.filter(r => !r.fork).slice(0, 6);
+            const list = document.getElementById('ghReposList');
+            list.innerHTML = '';
+            top.forEach(r => {
+                const item = document.createElement('div');
+                item.className = 'gh-repo-item';
+                item.innerHTML = `
+                    <div>
+                        <a class="gh-repo-name" href="${r.html_url}" target="_blank" rel="noopener">${r.name}</a>
+                        <div class="gh-repo-desc">${r.description || 'No description'}</div>
+                        <div class="gh-repo-meta">
+                            ${r.language ? `<span><i class="bi bi-circle-fill" style="font-size:8px;color:${LANG_COLORS[r.language]||'#00f7ff'}"></i>${r.language}</span>` : ''}
+                            <span class="gh-repo-stars"><i class="bi bi-star-fill"></i>${r.stargazers_count}</span>
+                            <span><i class="bi bi-diagram-2"></i>${r.forks_count}</span>
+                        </div>
+                    </div>`;
+                list.appendChild(item);
+            });
+            document.getElementById('ghReposLoad').style.display = 'none';
+            document.getElementById('ghReposList').style.display = 'block';
+
+        } catch(err) {
+            // Graceful fallback — show hardcoded known data
+            document.getElementById('ghStars').textContent = '5+';
+            document.getElementById('ghForks').textContent = '2+';
+            document.getElementById('ghFollowers').textContent = '—';
+            document.getElementById('ghRepos').textContent = '10+';
+            document.getElementById('ghOverviewLoad').style.display = 'none';
+            document.getElementById('ghOverviewBody').style.display = 'block';
+            ['ghLangsLoad','ghReposLoad'].forEach(id => {
+                const el = document.getElementById(id);
+                if(el) { el.innerHTML = '<span style="color:rgba(255,255,255,0.3);font-size:12px;padding:10px">Visit <a href="https://github.com/Rishabhwith" target="_blank" style="color:#00f7ff">github.com/Rishabhwith</a></span>'; }
+            });
+        }
+    }
+
+    // Load when github section enters viewport
+    const ghObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if(e.isIntersecting) {
+                loadGitHubStats();
+                ghObserver.disconnect();
+            }
+        });
+    }, { threshold: 0.1 });
+    ghObserver.observe(document.getElementById('github'));
 
     </script>
 </body>
